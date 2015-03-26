@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Truthy/Falsy</title>
+</head>
+<body>
+Boolean conversion of some JavaScript values<br/>
+What really happens when you use "if(someVariable)..."<br/>
+<br/>
+<script type="text/javascript">
+    var my_undefined;
+    var my_array = new Array();
+    var my_object = new Object();
+    document.write("true    : "+!!true+"<br/>");    //true
+    document.write("false   : "+!!false+"<br/>");   //false
+    document.write("0 (zero)    : "+!!0+"<br/>");   //false
+    document.write("1       : "+!!1+"<br/>");       //true
+    document.write("-1       : "+!!-1+"<br/>");     //true
+    document.write("99.99       : "+!!99.99+"<br/>");   //true
+    document.write("''      : "+!!''+"<br/>");      //false
+    document.write("'.'     : "+!!' '+"<br/>");     //true
+    document.write("'false' : "+!!'False'+"<br/>"); //true
+    document.write("undefined   : "+!!my_undefined+"<br/>");    //false
+    document.write("null    : "+!!null+"<br/>");    //false
+    document.write("empty object    : "+!!my_array+"<br/>");    //true
+    document.write("empty array : "+!!my_array+"<br/>");    //true
+</script>
+</body>
+</html>

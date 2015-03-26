@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>HTML Scratch</title>
+	<script type="text/javascript">
+		function factorial(n){
+			if(n<=1) return 1;
+			return n * factorial(n-1);
+		}
+	</script>
+</head>
+<body>
+	<div style="Color : #666;">
+		Letter Div<br/>
+		<span style="color : #f00;">A</span>
+		<span>B</span><br/>
+		<span>C</span>
+		<span>D</span>
+	</div>
+	<div style="Color : #228;">
+		Number Div<br/>
+		<span>1</span>
+		<span style="color : #0f0;">2</span><br/>
+		<span>3</span>
+		<span>4</span>
+	</div>
+	<!--<script type="text/javascript">
+		popup("3! = "+factorial(3));
+	</script>-->
+	<br/>
+	<div>
+		Function Div<br/>
+		<script type="text/javascript">
+			document.write("3! = "+factorial(3)+"<br/>");
+			document.write("4! = "+factorial(4)+"<br/>");
+		</script>
+	</div>
+	<br/>
+	<div>
+		Input Div<br/>
+		<form>
+			<span>N: </span><input type="text" id="inValue" />
+			<!--<input type="button" value="Fact(5) - Input button" onClick="alert(factorial(5));"/>-->
+			<button type="button" onClick="alert(factorial(document.getElementById('inValue').value));">Fact(N)</button>
+		</form>
+	</div>
+</body>
+</html>

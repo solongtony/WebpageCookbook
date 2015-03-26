@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Active Status Bar</title>
+    <script type="text/javascript">
+        function updateStatusBar(){
+            if(window.status.length > 20){
+                window.status = "";
+            }else{
+                window.status = window.status+"*";
+            }
+        }
+        
+        window.setInterval(updateStatusBar, 200);
+    </script>
+</head>
+<body>
+<p>Check out the status bar.</p>
+</body>
+</html>

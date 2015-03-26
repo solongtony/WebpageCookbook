@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<script type="text/javascript">
+
+	var gameEngine = {
+		"ticks": 0,
+		"fps": 50
+	};
+	
+	gameEngine.msPerTick = 1000/gameEngine.fps;
+	
+	var oStar = {};
+	oStar.speed = 100;				//pixels per second
+	oStar.cycleLengthSeconds = 6;		//seconds
+	oStar.cycleLength = oStar.cycleLengthSeconds * gameEngine.fps;	// framse
+	oStar.pxlsPerFrame = Math.round(oStar.speed/gameEngine.fps);
+	
+	oStar.left = 0;
+	oStar.top = 0;
+	oStar.dx = oStar.pxlsPerFrame;
+	oStar.dy = oStar.pxlsPerFrame;
+	
+	var funcMoveStar = moveStar_cycle;
+	
+	function pictureClicked(){
+		document.getElementById("output").innerHTML += "You Hit the Star!!!<br/>";
+	}
+	
+	function animate(){
+		if(funcMoveStar) funcMoveStar();
+		
+		++gameEngine.ticks;
+		setTimeout("animate();", gameEngine.msPerTick);
+	}
+	
+	function moveStar_cycle(){
+		var cycle = gameEngine.ticks % oStar.cycleLength;
+		var pix
+		if(cycle < oStar.cycleLength/2){
+			oStar.left = cycle*oStar.pxlsPerFrame;
+			oStar.top = cycle*oStar.pxlsPerFrame;
+		} else {
+			oStar.left = (oStar.cycleLength-cycle)*oStar.pxlsPerFrame;
+			oStar.top = (oStar.cycleLength-cycle)*oStar.pxlsPerFrame;
+		}
+		star.style.left = oStar.left+"px";
+		star.style.top = oStar.top+"px";
+	}
+	
+	function moveStar_rand(){
+		var delta = Math.round(oStar.pxlsPerFrame);
+		if(Math.random() < 0.5){
+			oStar.left += delta;
+		} else {
+			oStar.left -= delta;
+		}
+		if(Math.random() < 0.5){
+			oStar.top += delta;
+		} else {
+			oStar.top -= delta;
+		}
+		boxStar(50, 400);
+		star.style.left = oStar.left+"px";
+		star.style.top = oStar.top+"px";
+	}
+	
+	function moveStar_randAcceleration(){
+		var delta = 0.5;
+		if(Math.random() < 0.5){
+			oStar.dx += delta;
+		} else {
+			oStar.dx -= delta;
+		}
+		if(Math.random() < 0.5){
+			oStar.dy += delta;
+		} else {
+			oStar.dy -= delta;
+		}
+		oStar.left += oStar.dx;
+		oStar.top += oStar.dy;
+		boxStar(50, 400);
+		star.style.left = oStar.left+"px";
+		star.style.top = oStar.top+"px";
+	}
+	
+	function boxStar(min, max){
+		if(oStar.left < min) {
+			oStar.dx = 0;
+			oStar.left = min;
+		}
+		if(oStar.top < min) {
+			oStar.dy = 0;
+			oStar.top = min;
+		}
+		if(oStar.left > max) {
+			oStar.dx = 0;
+			oStar.left = max;
+		}
+		if(oStar.top > max) {
+			oStar.dy = 0;
+			oStar.top = max;
+		}
+	}
+	
+</script>
+<title>Click the Star</title>
+</head>
+<body style="background: blue; color: white;">
+	<select onchange="funcMoveStar = window[this.options[this.selectedIndex].value];">
+		<option value=null></option>
+		<option value="moveStar_cycle">Cycle</option>
+		<option value="moveStar_rand">Random</option>
+		<option value="moveStar_randAcceleration">Random Acceleration</option>
+	</select>
+	<img id="star" style="position: relative; left: 50; top: 50" onclick="pictureClicked();" src="LittleStar.png"/>
+	<div id="output"/>
+	<script type="text/javascript">
+		animate();
+	</script>
+</body>
+</html>

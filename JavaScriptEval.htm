@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>JavaScript Evaluator</title>
+	<script type="text/javascript">
+	
+	function processCommand(){
+		if(txtCommand.value){
+			txtCommandHistory.value += txtCommand.value+"\n";
+			try{
+				txtCommandHistory.value += eval(txtCommand.value);
+			} catch(e){
+				txtCommandHistory.value += e.description;
+			} finally {
+				txtCommandHistory.value += "\n\n";
+				txtCommandHistory.scrollTop = txtCommandHistory.scrollHeight;
+				txtCommand.value = "";
+			}
+		}
+	}
+	
+	function commandKeyPress(e){
+		var keynum;
+		if(window.event) // IE
+		{
+			keynum = e.keyCode
+		}
+		else if(e.which) // Netscape/Firefox/Opera
+		{
+			keynum = e.which
+		}
+		if(keynum===13)
+		{
+			processCommand();
+		}
+	}
+	
+	</script>
+</head>
+<body>
+Output:<br/>
+<textArea id="txtCommandHistory" type="text" readonly="readonly"
+	style="height:240px;width:500px;font:12px/18px Courier, Serif; overflow:auto;"></textArea><br/>
+Input<br/>
+<!-- onkeypress="commandKeyPress(event);" -->
+<textArea id="txtCommand" type="text" style="height:120px;width:500px;font:12px/18px Courier, Serif;"></textArea><br/>
+<!--<input name="txtCommand" type="text" size="50"></input>-->
+<button type="button" onClick="processCommand();">Eval</input>
+<br/>
+
+</body>
+</html>

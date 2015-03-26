@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Random Movement</title>
+<style>
+</style>
+</head>
+
+<body onload='init();'>
+<button onclick='reset();'>Reset</button>
+<div style='position:absolute;'>
+	<div id='at' style='color:red;position:absolute;top:20px;left:30px;'>@</div>
+</div>
+<script>
+function init() {
+	reset();
+}
+
+function reset(){
+	at.style.top = '200px';
+	at.style.left = '300px';
+}
+
+function randomMove(elmt) {
+	var y = parseInt(elmt.style.top);
+	var x = parseInt(elmt.style.left);
+	
+	var dy = Math.random()*10-5;
+	var dx = Math.random()*10-5;
+	
+	elmt.style.top = (y + dy)+"px";
+	elmt.style.left = (x + dx) + "px";
+}
+
+function animate(elmt){
+	randomMove(elmt);
+	setTimeout(function(){animate(elmt);}, 100);
+}
+
+var at = document.getElementById('at');
+animate(at);
+
+var foo = new Graphic({
+	id: "foo",
+	x:"111",
+	y:"222",
+	content:"f"
+});
+document.body.appendChild(foo.getElement());
+</script>
+</body>
+</html>

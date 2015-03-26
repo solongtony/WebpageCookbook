@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Text Redirect</title>
+</head>
+<body>
+	<div id="inputDiv" contentEditable="true" style="background-color:lightgreen">&nbsp;</div>
+	<br/>
+	<div id="outputDiv" style="background-color:lightblue">&nbsp;</div>
+	<script>
+	
+	// Return a string representing the typed value from the keyboard.
+	// Uses charcode when available, to avoid dealing with capitals, symbols, etc.
+	// Will only work with the onkeypress event, not onkeydown or onkeyup.
+	function getKeyPressCode(e){
+		//TODO:
+		// handle TAB, ENTER, and BACKSPACE.
+		// also function keys and arrow keys.
+		
+		var e=window.event || e;
+		// e.charCode is working fine in IE9.  Test with other browsers.
+		var keyunicode=e.charCode; // || e.keyCode;
+		return String.fromCharCode(keyunicode);
+	}
+	
+	// Used in stealTypedValue
+	var stolenText = "";
+	// Moves a typed value from one element to another.
+	// This works by letting the typed value be put into an editable element,
+	// then reading the typed value, then removing it.
+	// It looks at the event for non-printing control/function key presses.
+	function stealTypedValue(e, destination){
+		if(!e) var e = window.event;
+		var source = e.target || e.srcElement;
+		
+		switch(e.keyCode)
+		{
+			case  8:	//BACKSPACE
+				if(stolenText.length <= 1){
+					stolenText = "\n";
+				}else{
+					stolenText = stolenText.substr(0, stolenText.length-1);
+				}
+				// TODO: handle hold-down.
+				break;
+			case  9:	//TAB
+				e.preventDefault();
+				stolenText += "\t"; break;
+			//case 13:	// ENTER
+			//	stolenText += "\n"; break;
+			case 32:	// SPACE
+				stolenText += " "; break;
+			//TODO: handle arrow keys, function keys, etc.
+			default:
+				if(source.lastChild.tagName === "P"){
+					// Handle "ENTER"
+					stolenText += "\n";
+				}
+				if(source.innerText || source.value){
+					stolenText += (source.innerText || source.value);
+				}
+		}
+		
+		// Cleanup any previously inserted <p/> tags.
+		if(destination.lastChild){
+			while(destination.lastChild.tagName === "P"){
+				source.removeChild(source.lastChild);
+			}
+		}
+		
+		//alert(stolenText);
+		if(destination.innerText || destination.innerText === ""){
+			destination.innerText = stolenText;
+			// Force blank lines, since trailing whitespace is ignored.
+			var index = stolenText.length-1;
+			while(index >= 0 && stolenText[index] === "\n"){
+				destination.appendChild(document.createElement('<p/>'));
+				--index;
+			}
+		}else if(destination.value || destination.value === ""){
+			destination.value = stolenText;
+		}
+		
+		if(source.innerText){
+			source.innerText = "";
+		}else if(source.value){
+			source.value = "";
+		}
+		
+		if(source.lastChild){
+			alert(source.lastChild.tagName);
+		} else {
+			alert("no source child");
+		}
+		// Remove <p/> tags which are inserted for "ENTER"
+		while(source.lastChild && source.lastChild.tagName === "P"){
+			source.removeChild(source.lastChild);
+		}
+	}
+	
+	inputDiv.onkeypress = function(e){
+		var code = getKeyPressCode(e);
+		if(code){
+			outputDiv.innerText += code;
+		}
+	};
+	//inputDiv.onkeydown = function(e){e.preventDefault();};
+	//inputDiv.onkeyup = function(e){stealTypedValue(e, outputDiv);};
+	</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Set Cookie</title>	
+<script>
+
+// Write single cookie that will expire in 7 days
+function WriteSingleCookie(sKey, sValue)
+{
+	try
+	{
+		var dtNow = new Date();
+		dtNow.setDate(dtNow.getDate()+7);
+		document.cookie = escape(sKey) + "=" + escape(sValue) + ";expires=" + dtNow.toGMTString();
+	}
+	catch(e)
+	{
+		alert("WriteSingleCookie\n" + e);
+	}
+}
+
+// Read an alert cookie
+function ReadSingleCookie(sKey)
+{
+	try
+	{
+		var oCookies = document.cookie;
+		sKey = escape(sKey);
+		var nPos = oCookies.indexOf(sKey + "=");
+		var sValue = "";
+		if (nPos > -1)
+		{
+			var nStart = nPos + sKey.length + 1;
+			var nEnd = oCookies.indexOf(";", nStart);
+			if (nEnd == -1) nEnd = oCookies.length;
+			sValue = unescape(oCookies.substring(nStart, nEnd));
+		}
+		return (sValue);
+	}
+	catch(e)
+	{
+		alert("ReadSingleCookie\n" + e);
+	}
+}
+
+function Write()
+{
+	var keyTxtEl = document.getElementById('keyTxt');
+	var valueTxtEl = document.getElementById('valueTxt');
+	WriteSingleCookie(keyTxtEl.value, valueTxtEl.value);
+}
+
+function Read()
+{
+	var keyTxtEl = document.getElementById('keyTxt');
+	var valueFromCookieEl = document.getElementById('valueFromCookie');
+	valueFromCookieEl.innerHTML = ReadSingleCookie(keyTxtEl.value);
+}
+
+</script>
+</head>
+<body>
+<div style="position:absolute">
+	Key:<br/><br/>
+	Value:</div>
+<div style="position:relative; left:50px">
+	<input type="text" name="keyTxt" id="keyTxt"/><br/><br/>
+	<input type="text" name="valueTxt" id="valueTxt"></div>
+<br/>
+<input type="button" onclick="Write();" value="Write to Cookie"/><br/>
+<br/>
+<input type="button" onclick="Read();" value="Read from Cookie"/><br/><br/>
+<div id="valueFromCookie"></div>
+</body>
+</html>

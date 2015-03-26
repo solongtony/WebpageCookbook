@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="myDiv"/>
+<script>
+
+var writerInterval = setInterval(
+	function (){
+		var newNode = document.createTextNode("Hello. This is a new node.&nbsp;&nbsp;"); 
+		document.getElementById('myDiv').appendChild(newNode);
+	},
+	2000);
+
+setTimeout(
+	function(){
+		clearInterval(writerInterval);
+		alert("Done!");
+	},
+	9500);
+
+</script>
+</body>
+</html>

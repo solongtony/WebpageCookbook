@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Recursive Windows</title>
+    <script type="text/javascript">
+    var g_numberWindows = 1;
+    var w_generation = 0;
+    var w_rootWindow = window;
+    var w_childWindows = new Array();
+    
+    function openNewWindow(){
+        ++w_rootWindow.g_numberWindows;
+        
+        // Initialize values on the new page.
+        var newWindow = window.open('RecursiveWindows.htm','');
+        newWindow.w_generation = w_generation + 1;
+        newWindow.w_rootWindow = w_rootWindow;
+        newWindow.refreshPage();
+        
+        // Remember the newly created child window.
+        w_childWindows.push(newWindow);
+        
+        refreshAllPages();
+    }
+    
+    function refreshPage(){
+        //txtNumberChildren.value = w_numberChildWindows;
+        
+        txtNumberChildren.value = w_childWindows.length;
+        txtGeneration.value = w_generation;
+        txtNumberWindows.value = w_rootWindow.g_numberWindows;
+    }
+    
+    function refreshAllDescendants(){
+        for(var iChild in w_childWindows){
+            var oChild = w_childWindows[iChild];
+            oChild.refreshPage();
+            oChild.refreshAllDescendants();
+        }
+    }
+    
+    function refreshAllPages(){
+        w_rootWindow.refreshPage();
+        w_rootWindow.refreshAllDescendants();
+    }
+    </script>
+</head>
+<body onload="refreshPage()">
+    <span>Total number of windows&nbsp;</span><input name="txtNumberWindows" type="text" readonly="true"></input><br/>
+    <span>Generation of this window&nbsp;</span><input name="txtGeneration" type="text" readonly="true"></input><br/>
+    <span>Children of this window&nbsp;</span><input name="txtNumberChildren" type="text" readonly="true"></input><br/>
+    <button type="button" onClick="openNewWindow()">Open Window</button><br/>
+    <!--<button type="button" onClick="refreshPage()">Refresh</button>-->
+</body>
+</html>

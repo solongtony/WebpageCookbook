@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<style>
+label{
+	margin-right:5px;
+}
+</style>
+<title>Parse Numbers</title>
+<script>
+function clickHandler(){
+	var inputString = document.getElementById('numInput').value;
+	
+	var intElmt = document.getElementById('intOut');
+	intElmt.innerText = parseInt(inputString);
+	
+	var floatElmt = document.getElementById('floatOut');
+	floatElmt.innerText = parseFloat(inputString);
+}
+</script>
+</head>
+<body>
+<label>Input a String to see how it's parsed</label><input id ='numInput' type='text'/>
+<button onclick='clickHandler();' >Parse</button><br/>
+<label>parseInt:</label><div id='intOut'></div>
+<label>parseFloat:</label><div id='floatOut'></div>
+</body>
+</html>

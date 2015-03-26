@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<style type="text/css">
+		.box{HEIGHT: 100px; WIDTH: 150px; BORDER-STYLE: ridge; BORDER-WIDTH: 10px;}
+	</style>
+	<title></title>
+</head>
+<body style="BACKGROUND-COLOR: lightblue">
+	<div>
+		<div class="box" style="BACKGROUND-COLOR: red; BORDER-COLOR: green; FLOAT:left">LEFT</div>
+		<div class="box" style="BACKGROUND-COLOR: green; BORDER-COLOR: red; FLOAT:left">STACK LEFT</div>
+		<div class="box" style="BACKGROUND-COLOR: yellow; FLOAT:right">RIGHT</div>
+		<!-- notice the clear:both without it, the top box would hide under the left box -->
+		<div class="box" style="BACKGROUND-COLOR: red; CLEAR:both">FLOW DOWN</div>
+		<div class="box" style="BACKGROUND-COLOR: green;">FLOW DOWN</div>
+	</div>
+	
+<br/>
+	<!-- The below code is from W3Schools -->
+	<div style="width:500px">
+
+		<div style="background-color:#FFA500;">
+			<h1 style="margin-bottom:0;">Main Title of Web Page</h1>
+		</div>
+		<div style="background-color:#FFD700;height:200px;width:100px;float:left;">
+			<b>Menu</b><br />
+			HTML<br />
+			CSS<br />
+			JavaScript
+		</div>
+		<div style="background-color:#EEEEEE;height:200px;width:400px;float:left;">
+			Content goes here
+		</div>
+		<div style="background-color:#FFA500;clear:both;text-align:center;">
+			Copyright(c) 2011 W3Schools.com
+		</div>
+
+	</div>
+
+</body>
+</html>

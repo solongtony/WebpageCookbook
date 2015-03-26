@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Radio Buttons</title>
+</head>
+<body>
+	<div style="background-color:lightgreen">
+		Gender:<br/>
+		<input type="radio" name="gender" onclick="updateGender(this.value);" value="Male" /> Male<br/>
+		<input type="radio" name="gender" onclick="updateGender(this.value);" value="Female" /> Female<br/>
+		<input type="radio" name="gender" onclick="updateGender(this.value);" value="Other Gender" /> Other<br/>
+		<br/>
+		Age:<br/>
+		<input type="radio" name="age" onclick="updateAge(this.value);" value="Under 20" /> Under 20<br/>
+		<input type="radio" name="age" onclick="updateAge(this.value);" value="20 to 40" /> 20 to 40<br/>
+		<input type="radio" name="age" onclick="updateAge(this.value);" value="Over 40" /> Over 40<br/>
+		<br/>
+		<span style="border:20px"><input type="text" name="genderTxt" readonly="true" size="12" /></span>
+		<span style="border:20px"><input type="text" name="ageTxt" readonly="true" size="9" /></span>
+	</div>
+<script>
+function updateGender(newValue){
+	genderTxt.value = newValue;
+}
+
+function updateAge(newValue){
+	ageTxt.value = newValue;
+}
+</script>
+</body>
+</html>

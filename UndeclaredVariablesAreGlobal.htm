@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Undeclared Variables are Global!</title>
+</head>
+<body onload="first(); second();">
+	<script type="text/javascript">
+		function first(){
+			myUndeclaredVar = "I am global.";
+		}
+	</script>
+	<script type="text/javascript">
+		function second(){
+		  // Global variable with no namespace.
+		  // Should work in any browser.
+		  document.write(myUndeclaredVar);
+		  document.write("<br/>");
+		  // In Chrome (and IE?) "window" is the global object, so it's also here.
+		  // This did not work in Firefox.
+		  document.write(window.myUndeclaredVar);
+		  document.write("<br/>");
+		  // "this" sometimes refers to the global object.
+		  // Works in Chrome, not Firefox.
+		  document.write(this.myUndeclaredVar);
+		  document.write("<br/>");
+		}
+	</script>
+</body>
+</html>

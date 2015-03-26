@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+   "http://www.w3.org/TR/html4/frameset.dtd">
+<HTML>
+<!-- From http://www.w3.org/TR/html4/present/frames.html -->
+<HEAD>
+<TITLE>A simple frameset document</TITLE>
+</HEAD>
+<FRAMESET cols="125, *">
+  <FRAMESET rows="30%, 70%">
+      <FRAME src="SimpleFrameSets\Frame1.htm" frameborder="0">
+      <FRAME src="SimpleFrameSets\Frame2.png" frameborder="0">
+  </FRAMESET>
+  <FRAME src="SimpleFrameSets\Frame3.htm">
+  <NOFRAMES>
+      <P>This frameset document contains:
+      <UL>
+         <LI><A href="SimpleFrameSets\Frame1.htm">Some neat contents</A>
+         <LI><IMG src="SimpleFrameSets\Frame2.png" alt="A neat image">
+         <LI><A href="SimpleFrameSets\Frame3.htm">Some other neat contents</A>
+      </UL>
+  </NOFRAMES>
+</FRAMESET>
+</HTML>

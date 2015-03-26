@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<script type="text/javascript">
+		function Quoter(strName){
+			var strDoubleName = strName + ", aka " + strName;
+			return function(message){
+				document.write(strDoubleName+": "+message+"<br/>");
+			}
+		}
+	</script>
+	<title>Quoter</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var quoteBob = Quoter("Bob");
+		var quoteCharlie = Quoter("Charlie");
+		quoteBob("Hello world!");
+		quoteCharlie("Goodbye cruel world!");
+		quoteBob("I'm back.");
+	</script>
+</body>
+</html>

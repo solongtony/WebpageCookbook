@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Text Redirect</title>
+</head>
+<body>
+	<div id="inputDiv" contentEditable="true" style="background-color:lightgreen">&nbsp;</div>
+	<br/>
+	<div id="outputDiv" style="background-color:lightblue">&nbsp;</div>
+	<script>
+	
+	function stealKeyCode(e, destination){
+		e.preventDefault();
+		var k = e.keyCode;
+		var c;
+		var bValidChar = false;
+		var bBackspace = false;
+		
+		// Modifiers
+		//				keyCode		special property
+		// Shift		16			shiftKey=true
+		// Control		17			ctrlKey=true
+		// Alt			18
+		// Caps Lock	20
+		
+		// Tweak the keycode
+		if((65 <= k) && (k <= 90)){
+			// A-Z
+			// TODO: handle caplock.
+			// lowercase a is 97
+			if(!e.shiftKey) k += 32;
+			bValidChar = true;
+		}else if((96 <= k) && (k <= 105)){
+			// NUMPAD 0-9
+			// Subtract 48 to get it in the range of the digits.
+			k -= 48;
+			bValidChar = true;
+		}else if((48 <= k) && (k <= 57)){
+			// 0-9
+			bValidChar = true;
+		}
+		
+		// Map the keycode
+		switch(k)
+		{
+			// WHITESPACE
+			case  8:	//BACKSPACE
+				//TODO: handle backspace.
+				bBackspace = true;
+				c = "";
+				break;
+			case  9:	//TAB
+				c = "    "; break;
+			case 13:	// ENTER
+				// I don't know why, but adding a space presevers the newline char.
+				//bBackspace = true;
+				c = String.fromCharCode(k) +" "; break;
+			case 20:	// CAPLOCK
+				var caplock = "";
+				for(var prop in e){
+					//if(e.hasOwnProperty(prop)){
+						caplock += prop+": "+e[prop]+"\n";
+					//}
+				}
+				alert("caplock\n"+caplock);
+			case 32:	//SPACE
+				c = " "; break;
+
+			// NUMPAD OPERATORS
+			case 111:
+				c = "/"; break;
+			case 106:
+				c = "*"; break;
+			case 107:
+				c = "+"; break;
+			case 109:
+				c = "-"; break;
+				
+			default:
+				if(bValidChar) c = String.fromCharCode(k);
+				else c = "\t"+k+": "+ String.fromCharCode(k) +"\t";
+				break;
+		}
+		
+		destination.innerText += c;
+		
+		if(bBackspace && destination.innerText.length && destination.innerText.length >= 1) {
+			destination.innerText = destination.innerText.substr(0, destination.innerText.length-1);
+		}
+	}
+	
+	//inputDiv.onkeypress = function(e){e.preventDefault(); alert('press');};
+	//inputDiv.onkeydown = function(e){e.preventDefault();};
+	inputDiv.onkeyup = function(e){stealKeyCode(e, outputDiv);};
+	</script>
+</body>
+</html>

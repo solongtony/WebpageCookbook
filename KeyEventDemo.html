@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Key Event Demo</title>
+	<script>
+	function load(){
+		document.onkeydown = displayKeyDataMaker(downCharCodeId, downKeyCodeId, downWhichId);
+		document.onkeyup = displayKeyDataMaker(upCharCodeId, upKeyCodeId, upWhichId);
+		document.onkeypress = displayKeyDataMaker(pressCharCodeId, pressKeyCodeId, pressWhichId);
+	}
+	
+	function displayKeyDataMaker(charCodeElement, keyCodeElement, whichElement){
+		return function (e){
+		
+			var evt=window.event || e;
+			evt.preventDefault();
+			
+			if(evt.charCode) charCodeElement.value = evt.charCode;
+			if(evt.keyCode) keyCodeElement.value = evt.keyCode;
+			if(evt.which) whichElement.value = evt.which;
+		};
+	}
+	
+	</script>
+</head>
+<body onload="load();">
+	<div style="background-color:lightblue">
+		<div style="font-weight:bold">keydown</div>
+		charCode: <input type="text" id="downCharCodeId" size="15" />
+		keyCode: <input type="text" id="downKeyCodeId" size="15" />
+		which: <input type="text" id="downWhichId" size="15" /><br/><br/>
+	</div>
+	<br/>
+	<div style="background-color:lightgreen">
+		<div style="font-weight:bold">keyup</div>
+		charCode: <input type="text" id="upCharCodeId" size="15" />
+		keyCode: <input type="text" id="upKeyCodeId" size="15" />
+		which: <input type="text" id="upWhichId" size="15" /><br/><br/>
+	</div>
+	<br/>
+	<div style="background-color:yellow">
+		<div style="font-weight:bold">keypress</div>
+		charCode: <input type="text" id="pressCharCodeId" size="15" />
+		keyCode: <input type="text" id="pressKeyCodeId" size="15" />
+		which: <input type="text" id="pressWhichId" size="15" /><br/><br/>
+	</div>
+	
+
+</body>
+</html>
